@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block mainbody %}
+
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-5 col-12 mb-5">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Homepage</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{topic_name}}</li>
+                    </ol>
+                </nav>
+                <h2 class="text-white">{{method_name}} </h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="topics-detail-section section-padding" style="padding: 0;">
+    <div class="container">
+      <div class="row">
+  
+        <div class="col-lg-12 col-12 m-auto">
+          <form action="" , method="POST">
+            {% csrf_token %}
+            <!--output-->
+            <p><b>{{info}}</p>
+            <p>{{input_error}} <br></p>
+            <p>{{timeout_error}} <br></p>
+         
+            <!-- Div element where the Plotly plot will be rendered -->
+            <div>{{ plot | safe }}</div>
+  
+       
+            <!--summary-->
+            <p>{{result}}</p>
+            <p>{{emasUsed}}</p>
+            <p>{{battingAvg}}</p>
+            <p>{{gain_loss_ratio}}</p>
+            <p> {{avgGain}}</p>
+            <p> {{avgLosses}}</p>
+            <p> {{max_return}}</p>
+            <p> {{max_loss}}</p>
+            <p>{{total_returns}} </p>
+
+            <!--graphs-->
+            {% if graph %}
+            <div style="width:600;height:500">
+            {{ graph|safe }}
+            </div>
+            {% endif %}
+
+            <!--input-->
+            {% if stock_input%}
+            <div class="form-group ">
+              <label for="stock_input">{{stock_input}}</label>
+              <input type="stock_input" class="form-control" id="stock_input" name="stock_input">
+            </div><br>
+            {%endif%}
+            {% if short_term%}
+            <div class="form-group">
+              <label for="short_term">{{short_term}}</label>
+              <input type="text" class="form-control" id="short_term" name='short_term'>
+            </div><br>
+            {%endif%}
+            {% if long_term%}
+            <div class="form-group">
+              <label for="long_term">{{long_term}}</label>
+              <input type="text" class="form-control" id="long_term" name='long_term'>
+            </div> <br>
+            {%endif%}
+            {% if startdate%}
+            <div class="form-group">
+              <label for="startdate">{{startdate}}</label>
+              <input type="date " class="form-control" id="startdate" name='startdate'>
+            </div> <br>
+            {%endif%}
+            <button type="submit" class="btn btn-outline-primary">Analyse</button>
+            <br>
+            
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!--For ploting graphs using js-->
+
+     <!--  Include necessary Chart.js script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <!-- Canvas element where the graph will be rendered -->
+ <!-- <canvas id="plotChart" width="200" height="300"></canvas> -->
+ <style>
+  .chart-container {
+      width: 50%; /* Adjust the width as needed */
+      height: 400px; /* Set the desired height */
+      overflow: hidden; /* Hide any overflow outside the container */
+      position: relative; /* Position the container */
+      margin: 0 auto; /* Center the container horizontally */
+  }
+</style>
+ <div class="chart-container">
+  <canvas id="plotChart"></canvas>
+</div>
+
+<div class="chart" style="height: 200px; width: 200px; ;">
+ <script>
+     // JavaScript code to render the graph
+     var ctx = document.getElementById('plotChart').getContext('2d');
+
+     // Data from Django context
+     var list_x = {{ list_x | safe }};
+     var list_y = {{ list_y | safe }};
+
+     // Create a Chart.js line chart
+     
+     var plotChart = new Chart(ctx, {
+         type: 'line',
+         data: {
+             labels: list_x,
+             datasets: [{
+                 label: 'Plot Data',
+                 data: list_y,
+                 borderColor: 'blue',
+                 fill: false
+             }]
+         },
+       options: {
+            maintainAspectRatio: false,  // Set to false to control aspect ratio
+            responsive: true,            // Chart adjusts to container size
+            aspectRatio: 1.5,            // Adjust the aspect ratio (width / height)
+            // Other customization options...
+        }
+     });
+ </script>
+</div>
+
+
+
+
+
+{% endblock mainbody %}

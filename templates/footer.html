@@ -1,0 +1,74 @@
+    <!-- footer -->
+
+    <footer class="site-footer section-padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-12 mb-4 pb-2">
+                    <a class="navbar-brand mb-2" href="home">
+
+                        <img src="/static/images/fusion_logo_footer.jpg" alt="">
+                        <span>FIMAC</span>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                    <h6 class="site-footer-title mb-3">Go to</h6>
+
+                    <ul class="site-footer-links">
+                        <li class="site-footer-link-item">
+                            <a href="/home" class="site-footer-link">Home</a>
+                        </li>
+                        {% comment %} <li class="site-footer-link-item">
+                            <a href="{% url 'commingsoon' %}" class="site-footer-link">Mathematics</a>
+                        </li> {% endcomment %}
+                        {% comment %} <li class="site-footer-link-item">
+                            <a href="{% url 'commingsoon' %}" class="site-footer-link">Code Base</a>
+                        </li> {% endcomment %}
+
+    
+                        {% comment %} <li class="site-footer-link-item">
+                            <a href="{% url 'commingsoon' %}" class="site-footer-link">About</a>
+                        </li> {% endcomment %}
+                        {% comment %} <li class="site-footer-link-item">
+                            <a href="{% url 'credits' %}" class="site-footer-link">Credits</a>
+                        </li>
+                        <li class="site-footer-link-item">
+                            <a href="{% url 'report' %}" class="site-footer-link">Report</a>
+                        </li> {% endcomment %}
+                    
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
+                    <h6 class="site-footer-title mb-3"></h6>
+                    
+                    {%for act in recentact%}
+                    {{act}}
+                    {%endfor%}
+
+                    <p class="text-black d-flex mb-1">
+                        {{recentact}} 
+                    </p>
+
+
+
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            English</button>
+
+                        <ul class="dropdown-menu">
+                            <li><button class="dropdown-item" type="button">English</button></li>
+                        </ul>
+                    </div>
+                    <p class="copyright-text mt-lg-5 mt-4">Copyright © Fimac. All rights reserved.
+                        <br><br>Email: <a rel="nofollow" href="" target="_blank">fimac.fusion@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>

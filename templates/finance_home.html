@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Finance{% endblock title %}
+
+{% block mainbody %}
+        <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <h1 class="text-white text-center"> Finance</h1>
+
+                        <h6 class="text-center"></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong><ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul></strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+            {% endif %}
+        </div>
+        
+        <section class="explore-section section-padding" id="section_2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="mb-4">Explore</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel"
+                                aria-labelledby="design-tab" tabindex="0">
+                                <div class="row">
+
+                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="{% url 'backtesting' %}">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">Backtesting Strategies</h5>
+                                                        <p class="mb-0"></p>
+                                                    </div>
+                                                </div>
+                                                <img src="static/images/topics/undraw_Remote_design_team_re_urdx.png"
+                                                    class="custom-block-image img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                   
+
+                                    {% comment %} <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="{% url 'commingsoon' %}">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">Get Whatsapp and E-mail alerts</h5>
+                                                        <p class="mb-0"></p>
+                                                    </div>                                           
+                                                </div>
+                                                <img src="static/images/topics/undraw_Redesign_feedback_re_jvm0.png"
+                                                    class="custom-block-image img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                    </div> {% endcomment %}
+
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="explore-section section-padding" id="section_2">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel"
+                                aria-labelledby="design-tab" tabindex="0">
+                                <div class="row">
+
+                                    {% comment %} <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="{% url 'calculus_one' %}">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">Finance 2 </h5>
+                                                        <p class="mb-0"></p>
+                                                    </div>                                                 
+                                                </div>
+                                                <img src="static/images/topics/undraw_Remote_design_team_re_urdx.png"
+                                                    class="custom-block-image img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                    </div> {% endcomment %}
+
+                                
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+
+    {% endblock mainbody %}
