@@ -25,10 +25,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
-    path('accessfimacadmin/', admin.site.urls),
+    path('accessfimacfinanceadmin/', admin.site.urls),
     path('',include('code_base.urls')),
     path('home',include('code_base.urls')),
     path('backtesting',include('backtesting.urls')),
+    path('livetesting',include('livetesting.urls')),
 ]
 urlpatterns+=staticfiles_urlpatterns()
 

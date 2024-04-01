@@ -110,7 +110,7 @@ def run_with_timeout(all_info_data, **kwargs):
     except Exception as e:
         all_info_data['input_error'].append(str(e))
 
-def emas(request):
+def emas_method(request):
     context={'stock_input':'Enter stock ticker,( eg: for apple , enter AAPL); see symbols here: https://finance.yahoo.com/lookup/',
              'startdate':'Enter date in format: YYYY-MM-DD .',
              'short_term':'Enter short term EMAs separted by , or backspace (eg: 3 5, 8 10, 12 15)',
@@ -150,7 +150,6 @@ def emas(request):
                         close_value=[value[1] for value in plot_data]
                         ema_short_value=[value[2] for value in plot_data]
                         ema_long_value=[value[3] for value in plot_data]
-                        print(date,close_value,ema_long_value,ema_short_value)
                         fig=go.Figure()
                         fig.add_trace(go.Scatter(x=date,y=close_value,mode='lines',name='closing price'))
                         fig.add_trace(go.Scatter(x=date,y=ema_short_value,mode='lines',name='short term emas'))
@@ -160,14 +159,14 @@ def emas(request):
                         context_result = {
                             'result':f"Results for {stock} from {startdate} to {endtime}, with sample size of {data['ng']+data['nl']} is:",
                             'enddate': str(endtime),
-                            'emasUsed': f"EMAs used: short terms= {[*short_term_emas]} and long terms= {[*long_term_emas]}",
-                            'battingAvg': f"Batting Avg  : {data['battingAvg']}",
+                       'emasUsed': f"EMAs used: short terms= {[*short_term_emas]} and long terms= {[*long_term_emas]}",
+                            'batting_avg': f"Batting Avg  : {data['battingAvg']}",
                             'gain_loss_ratio':f"Gain/loss ratio: {data['ratio']}" ,
-                            'avgGain': f"Average Gain: {data['avgGain']}" ,
-                            'avgLosses':f"Average Loss:{data['avgLosses']} " ,
-                            'max_return':f"Max Returns: {data['maxR']} " ,
+                            'avg_gain': f"Average Gain: {data['avgGain']}" ,
+                            'avg_loss':f"Average Loss:{data['avgLosses']} " ,
+                            'max_gain':f"Max Returns: {data['maxR']} " ,
                             'max_loss':f"Max loss: {data['maxL']}" ,
-                            'total_returns':f"Total returns over {data['ng']+data['nl']} executed trades is : {data['totalR']} %" 
+                            'total_return':f"Total returns over {data['ng']+data['nl']} executed trades is : {data['totalR']} %" 
                         }
                         context={**context,**context_result,**context_plot}
                     return render(request, 'backtesting_input_output.html', context )              
@@ -177,28 +176,29 @@ def emas(request):
             return render(request, 'backtesting_input_output.html',context)
     
 
-    x_series1 = [1, 2, 3, 4, 5]
-    y_values = [10, 20, 15, 25, 30]
+    # x_series1 = [1, 2, 3, 4, 5]
+    # y_values = [10, 20, 15, 25, 30]
 
-    x_series2 = [2, 4, 6, 8, 10]
+    # x_series2 = [2, 4, 6, 8, 10]
     
-    x_series3 = [1, 3, 5, 7, 9]
+    # x_series3 = [1, 3, 5, 7, 9]
 
-    fig = go.Figure()
+    # fig = go.Figure()
 
-    # Adding the first series
-    fig.add_trace(go.Scatter(x=x_series1, y=y_values, mode='lines', name='Series 1'))
+    # # Adding the first series
+    # fig.add_trace(go.Scatter(x=x_series1, y=y_values, mode='lines', name='Series 1'))
 
-    # Adding the second series
-    fig.add_trace(go.Scatter(x=x_series2, y=y_values, mode='lines', name='Series 2'))
+    # # Adding the second series
+    # fig.add_trace(go.Scatter(x=x_series2, y=y_values, mode='lines', name='Series 2'))
 
-    # Adding the third series
-    fig.add_trace(go.Scatter(x=x_series3, y=y_values, mode='lines', name='Series 3'))
+    # # Adding the third series
+    # fig.add_trace(go.Scatter(x=x_series3, y=y_values, mode='lines', name='Series 3'))
 
-    plot_div = fig.to_html(full_html=False,config=custom_config)
-    context_g = {
-        'plot_div': plot_div,
-    }
-    context={**context_g,**context}
+    # plot_div = fig.to_html(full_html=False,config=custom_config)
+    # context_g = {
+    #     'plot_div': plot_div,
+    # }
+    # context={**context_g,**context}
+
     return render(request, 'backtesting_input_output.html',context)
 

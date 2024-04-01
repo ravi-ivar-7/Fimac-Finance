@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% block title %} Live Intraday{% endblock title %}
+
+{% block mainbody %}
+<!--
+<style>
+  /*style for form*/
+  /* Custom CSS for styling the form */
+  /* Apply custom styling to the form container */
+  .my-form {
+    background-color: #f6f6f6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  }
+
+  /* Style form labels */
+  .my-form label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Style form input fields */
+  .my-form input[type="text"], .my-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  /* Style form buttons */
+  .my-form button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .my-form button:hover {
+    background-color: #0056b3;
+  }
+  .col-xs-6 button {
+    margin-bottom: 10px; /* Add margin to create spacing between the buttons */
+  }
+  /* Custom button styles for the modal */
+  .modal-button {
+      padding: 10px 0; /* Adjust the vertical padding as needed */
+      cursor: pointer;
+      border: none;
+      border-radius: 0;
+      width: 100%;
+  }
+
+  .modal-button-close {
+      background-color: #ccc;
+      color: #333;
+  }
+
+  .modal-button-submit {
+      background-color: #007BFF;
+      color: #fff;
+  }
+/*style for table display*/
+
+  /* CSS Styles */
+  .table-responsive {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #fff;
+  }
+  tr:hover {
+    background-color: #e0e0e0;
+  }
+  th, td {
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+  }
+</style>-->
+<style>
+  /* Custom CSS for styling the form */
+  .my-form {
+      background-color: #f6f6f6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  }
+  .my-form label {
+      font-weight: bold;
+      color: #333;
+  }
+  .my-form input[type="text"], .my-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 16px;
+  }
+
+  /* Custom styles for the modal buttons */
+  .modal-button {
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+  }
+  .modal-button-close {
+      background-color: #ccc;
+      color: #333;
+  }
+  .modal-button-submit {
+      background-color: #007BFF;
+      color: #fff;
+  }
+  .modal-button:hover {
+      background-color: #0056b3;
+  }
+
+  /* Add margin between the buttons */
+  .modal-button-close, .modal-button-submit {
+      margin-bottom: 10px;
+  }
+</style>
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-5 col-12 mb-5">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Homepage</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{topic_name}} Live Intraday</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% if messages %}
+<br>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %} style="text-align: center; color: white;">
+        <h2>{{message}}</h2>
+        </li>
+        {% endfor %}
+    </ul>
+  </strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="row">
+
+<!-- Input form -->
+<div class="container" style="padding: 5px;">
+<!-- Button to trigger the modal -->
+<div class="text-center">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#analysisModal">
+    Intraday Trade Input
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="analysisModal" tabindex="-1" role="dialog" aria-labelledby="analysisModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="analysisModalLabel">Submit Input</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="my-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ live_intraday_form.as_p }}
+                    </div>
+                    <button type="button" class="modal-button modal-button-close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="modal-button modal-button-submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Display output -->
+            <!-- Div element where the Plotly plot will be rendered -->
+            <div>{{ plot | safe }}</div>
+
+
+       
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{headings}}</th>
+                        
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                {{item}}
+              
+                        <tr>
+                            <td>{{ item.underlying }}</td>
+                            <td>{{ item.identifier }}</td>
+                            <td>{{ item.instrumentType }}</td>
+                            <td>{{ item.instrument }}</td>
+                        
+                            <td>{{ item.expiryDate }}</td>
+
+                            <td>{{ item.optionType }}</td>
+                            <td>{{ item.strikePrice }}</td>
+                            <td>{{ item.lastPrice }}</td>
+                            <td>{{ item.pChange }}</td>
+                            <td>{{ item.openPrice }}</td>
+                            <td>{{ item.highPrice }}</td>
+                            <td>{{ item.lowPrice }}</td>
+
+
+                            <td>{{ item.numberOfContractsTraded }}</td>
+                            <td>{{ item.totalTurnover }}</td>
+                            <td>{{ item.premiumTurnover }}</td>
+                            <td>{{ item.openInterest }}</td>
+                            <td>{{ item.underlyingValue }}</td>
+                          
+                        </tr>
+              
+                </tbody>
+            </table>
+              {{data.underlyingValue}}
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+   
+ <!--for form input (change color of all button to bule from red)-->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock mainbody %}

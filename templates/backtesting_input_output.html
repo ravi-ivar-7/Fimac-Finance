@@ -33,27 +33,53 @@
          
             <!-- Div element where the Plotly plot will be rendered -->
             <div>{{ plot | safe }}</div>
-  
-       
+
             <!--summary-->
             <p>{{result}}</p>
             <p>{{emasUsed}}</p>
-            <p>{{battingAvg}}</p>
+            <p>{{batting_avg}}</p>
             <p>{{gain_loss_ratio}}</p>
-            <p> {{avgGain}}</p>
-            <p> {{avgLosses}}</p>
-            <p> {{max_return}}</p>
+            <p> {{avg_gain}}</p>
+            <p> {{avg_loss}}</p>
+            <p> {{max_gain}}</p>
             <p> {{max_loss}}</p>
-            <p>{{total_returns}} </p>
+            <p>{{total_return}} </p>
 
-            <!--graphs-->
-            {% if graph %}
-            <div style="width:600;height:500">
-            {{ graph|safe }}
-            </div>
-            {% endif %}
+              <!-- HTML table  -->
+           <div>
+            <!--{{ html_table|safe}}  Use your web framework's syntax for variable substitution -->
+           </div>
+           {%if table_output%}<br>
+           <div class='table-responsive'>
+           <table class="table table-striped table-dark">
+               <thead>
+                 <tr> <th> S.No. </th> 
+                   {% for heading in headings %}
+                   <th scope="col">{{heading}}</th>
+                   {% endfor %}
+                 </tr>
+               </thead>
+               <tbody>
+                 {% for row in table_output %}
+                 <tr> <td> {{forloop.counter}} </td>
+                       {% for column in row %}
+                         <td>{{column}}</td>
+                       {% endfor %}
+                 </tr>
+                 {% endfor %}
+               </tbody>
+             </table>
+           </div>
+             {%endif%}
+
 
             <!--input-->
+  
+              <!--input using django-forms-->
+              {%if form%}
+              {{ form.as_p }}
+              {%endif%}
+
             {% if stock_input%}
             <div class="form-group ">
               <label for="stock_input">{{stock_input}}</label>

@@ -12,11 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-#for render
-import dj_database_url
-import environs
-env=environs.Env()
-environs.Env.read_env()
+# #for render
+# import dj_database_url
+# import environs
+# env=environs.Env()
+# environs.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,12 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'backtesting',
+    'livetesting',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-     #for staticfiles on render
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #  #for staticfiles on render
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,16 +82,16 @@ WSGI_APPLICATION = 'finance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}'''
-#render databse postgre
-DATABASES = {
-    'default':dj_database_url.parse(env(('DATABASE_URL')))
 }
+# #render databse postgre
+# DATABASES = {
+#     'default':dj_database_url.parse(env(('DATABASE_URL')))
+# }
 
 
 # Password validation
@@ -132,7 +133,7 @@ STATIC_URL = 'static/'
 #for deploying on render
 #if not DEBUG:
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static/')
